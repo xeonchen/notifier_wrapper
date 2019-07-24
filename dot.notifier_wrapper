@@ -1,0 +1,6 @@
+[ifttt]
+event = <your_event_name>
+key = <your_key>
+
+[terminal-notifier]
+path = <terminal-notifier_path>
