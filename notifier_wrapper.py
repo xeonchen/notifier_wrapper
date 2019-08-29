@@ -23,6 +23,9 @@ class Notifier(object):
         for i, arg in enumerate(sys.argv):
             if arg == "-message":
                 return sys.argv[i + 1]
+        for arg in reversed(sys.argv[1:]):
+            if not arg.startswith("-"):
+                return arg
         return "<empty message>"
 
 @register_notifier
@@ -63,7 +66,8 @@ def main():
     for name in config.sections():
         if name in NOTIFIERS:
             notifier = NOTIFIERS[name].create(**config[name])
-            notifier.run()
+            if notifier is not None:
+                notifier.run()
 
 if __name__ == '__main__':
     main()

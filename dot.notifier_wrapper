@@ -1,6 +1,6 @@
 [ifttt]
-event = <your_event_name>
-key = <your_key>
+; event = <your event name>
+; key = <your key>
 
 [terminal-notifier]
-path = <terminal-notifier_path>
+; path = <path to your local notifier>
