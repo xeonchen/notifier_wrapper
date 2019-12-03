@@ -33,16 +33,23 @@ class IftttNotifier(Notifier):
     NAME = "ifttt"
     IFTTT_URL = "https://maker.ifttt.com/trigger/{event}/with/key/{key}"
 
-    def __init__(self, key, event):
+    def __init__(self, key, event, prefix=None):
         super(IftttNotifier, self).__init__()
         self._message = self.parse_message()
         self._url = IftttNotifier.IFTTT_URL.format(key=key, event=event)
+        self._prefix = prefix
+
+    @property
+    def message(self):
+        if self._prefix is None:
+            return self._message
+        return '[%s] %s' % (self._prefix, self._message)
 
     def run(self):
         import urllib.parse
         import urllib.request
 
-        post_fields = urllib.parse.urlencode({ "value1": self._message }).encode()
+        post_fields = urllib.parse.urlencode({ "value1": self.message }).encode()
         request = urllib.request.Request(self._url, post_fields)
         with urllib.request.urlopen(request) as f:
             _msg = f.read().decode()

@@ -1,6 +1,7 @@
 [ifttt]
 ; event = <your event name>
 ; key = <your key>
+; prefix = <prefix of message>
 
 [terminal-notifier]
 ; path = <path to your local notifier>
